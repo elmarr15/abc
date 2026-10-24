@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday Sandie!</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(
+                135deg,
+                #fef2f2 0%,
+                #fff1f2 35%,
+                #f0fdf4 70%,
+                #eff6ff 100%
+            );
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
+        }
+
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Full-screen confetti */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Birthday card */
+        .birthday-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 25px 60px -15px rgba(225, 29, 72, 0.22),
+                0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+        }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.7);
+            border-radius: 9999px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #f43f5e;
+            border-radius: 9999px;
+            border: 2px solid white;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #e11d48;
+        }
+
+        /* Photo glow */
+        .image-glow {
+            box-shadow: 0 12px 30px -5px rgba(225, 29, 72, 0.35);
+        }
+
+        /* Photo animation */
+        .photo-frame {
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: translateX(-50%) scale(1.04);
+        }
+
+        /* Music button */
+        #music-button {
+            transition: all 0.2s ease;
+        }
+
+        #music-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .birthday-card {
+                padding: 24px 16px;
+            }
+
+            #birthday-message {
+                padding-left: 6px;
+                padding-right: 6px;
+                font-size: 27px;
+                line-height: 1.35;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .photo-frame,
+            #music-button {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center p-4 sm:p-8 relative min-h-screen">
+
+    <!-- Confetti -->
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="./HB.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-3xl mx-auto my-auto pt-24 sm:pt-32 pb-8 relative z-20">
+
+        <!-- Birthday Card -->
+        <section class="birthday-card relative rounded-3xl p-6 sm:p-10 md:p-14 border-4 border-slate-900 text-center flex flex-col items-center">
+
+            <!-- Birthday Photo -->
+            <div class="photo-frame absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-48 h-32 sm:w-64 sm:h-44 md:w-72 md:h-48 bg-slate-900 border-4 border-slate-900 rounded-2xl shadow-xl overflow-hidden z-30 image-glow">
+
+                <img
+                    id="card-image"
+                    src="./hbp.jpe"
+                    alt="Birthday Celebration Photo"
+                    class="w-full h-full object-cover"
+                    onerror="this.onerror=null; this.src='https://placehold.co/600x400/fda4af/ffffff?text=Happy+Birthday+Sandie';"
+                >
+
+            </div>
+
+            <!-- Heading -->
+            <div class="mt-12 sm:mt-14 md:mt-12 mb-6 w-full">
+
+                <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 tracking-tight">
+                    Happy Birthday!
+                </h1>
+
+                <div class="w-32 h-1.5 bg-rose-500 rounded-full mx-auto mt-3"></div>
+
+                <p class="font-handwriting text-3xl sm:text-4xl text-rose-500 mt-3">
+                    To our dear Sandie 💖
+                </p>
+
+            </div>
+
+            <!-- Birthday Letter -->
+            <div
+                id="birthday-message"
+                class="w-full text-left font-handwriting text-3xl sm:text-4xl text-slate-800 px-4 sm:px-6 py-2 max-h-80 sm:max-h-96 overflow-y-auto custom-scrollbar rounded-xl leading-snug sm:leading-relaxed"
+            >
+
+                <p class="mb-5">
+                    Wishing you a truly blessed and wonderful day today.
+                    I’m honestly so happy to have met a friend like you.
+                    Even if you can be a bit makulit and a total matampuhin
+                    at times, I’m still so grateful to have you in my
+                    life—you really feel like a little sister to me.
+                </p>
+
+                <p class="mb-5">
+                    Please always remember to take care of yourself,
+                    especially your heart and your feelings. Be more
+                    mindful of what you let get to you!
+                </p>
+
+                <p class="mb-3">
+                    Happy, happy birthday again, Sandie, my favorite
+                    little sister who somehow always manages to smell
+                    like amoy putok, mapanghe, at maasim! 🤪
+                </p>
+
+                <p class="text-center mt-6 mb-4 font-bold text-rose-500">
+                    Stay sweet, enjoy your special day, and keep being
+                    you! 🎉🎂✨💖
+                </p>
+
+            </div>
+
+            <!-- Music Control -->
+            <div class="mt-5 flex flex-col items-center gap-3">
+
+                <button
+                    id="music-button"
+                    type="button"
+                    class="rounded-full bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-3 shadow-lg"
+                    aria-label="Play birthday music"
+                >
+                    ▶ Play Birthday Music 🎵
+                </button>
+
+                <p id="music-status" class="text-sm text-slate-500">
+                    Play some music for the celebration!
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <p class="text-center text-slate-600 text-sm mt-8">
+            Made with love for Sandie ❤️
+        </p>
+
+    </main>
+
+    <!-- Application Script -->
+    <script>
+        /* =========================================
+           1. FALLING CONFETTI
+        ========================================= */
+
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = 0;
+        let height = 0;
+        let animationFrame;
+
+        function resizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const confettiColors = [
+            '#f43f5e',
+            '#ec4899',
+            '#8b5cf6',
+            '#3b82f6',
+            '#10b981',
+            '#f59e0b',
+            '#ef4444',
+            '#f472b6'
+        ];
+
+        const confettiParticles = [];
+        const maxConfettiCount = 100;
+
+        class ConfettiParticle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * width;
+                this.y = initial
+                    ? Math.random() * height
+                    : -20 - Math.random() * 100;
+
+                this.size = Math.random() * 7 + 4;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1.5 - 0.75;
+
+                this.color = confettiColors[
+                    Math.floor(Math.random() * confettiColors.length)
+                ];
+
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 8 - 4;
+                this.oscillationSpeed = Math.random() * 0.04 + 0.02;
+                this.oscillationStep = Math.random() * Math.PI * 2;
+
+                this.shape = Math.random() > 0.35 ? 'rect' : 'circle';
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.oscillationStep += this.oscillationSpeed;
+
+                this.x += Math.sin(this.oscillationStep) + this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > height + 20) {
+                    this.reset();
+                }
+
+                if (this.x < -20) {
+                    this.x = width + 20;
+                } else if (this.x > width + 20) {
+                    this.x = -20;
+                }
+            }
+
+            draw() {
+                ctx.save();
+
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+
+                if (this.shape === 'rect') {
+                    ctx.fillRect(
+                        -this.size / 2,
+                        -this.size / 2,
+                        this.size,
+                        this.size * 0.6
+                    );
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < maxConfettiCount; i++) {
+            confettiParticles.push(new ConfettiParticle());
+        }
+
+        function renderConfetti() {
+            ctx.clearRect(0, 0, width, height);
+
+            confettiParticles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            animationFrame = requestAnimationFrame(renderConfetti);
+        }
+
+        // Respect reduced-motion settings
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            renderConfetti();
+        }
+
+        /* =========================================
+           2. BACKGROUND MUSIC
+        ========================================= */
+
+        const bgMusic = document.getElementById('bg-music');
+        const musicButton = document.getElementById('music-button');
+        const musicStatus = document.getElementById('music-status');
+
+        async function playMusic() {
+            try {
+                await bgMusic.play();
+
+                musicButton.textContent = '❚❚ Pause Birthday Music 🎵';
+                musicButton.setAttribute('aria-label', 'Pause birthday music');
+                musicStatus.textContent = 'Enjoy the birthday music! 💖';
+            } catch (error) {
+                musicStatus.textContent =
+                    'Music could not play. Check that HB.mp3 exists.';
+            }
+        }
+
+        function pauseMusic() {
+            bgMusic.pause();
+
+            musicButton.textContent = '▶ Play Birthday Music 🎵';
+            musicButton.setAttribute('aria-label', 'Play birthday music');
+            musicStatus.textContent = 'Music paused.';
+        }
+
+        musicButton.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                playMusic();
+            } else {
+                pauseMusic();
+            }
+        });
+
+        // Update controls if playback changes
+        bgMusic.addEventListener('play', () => {
+            musicButton.textContent = '❚❚ Pause Birthday Music 🎵';
+            musicButton.setAttribute('aria-label', 'Pause birthday music');
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            musicButton.textContent = '▶ Play Birthday Music 🎵';
+            musicButton.setAttribute('aria-label', 'Play birthday music');
+        });
+
+        bgMusic.addEventListener('error', () => {
+            musicStatus.textContent =
+                'Music file not found. Make sure HB.mp3 is uploaded.';
+        });
+
+        // Attempt autoplay; the browser may block it.
+        window.addEventListener('load', () => {
+            playMusic();
+        });
+    </script>
+
+</body>
+</html>
